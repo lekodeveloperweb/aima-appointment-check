@@ -1,6 +1,5 @@
-const puppeteer = require("puppeteer")
-
-console.log("Starting...")
+import { platform } from "os"
+import puppeteer from "puppeteer"
 ;(async () => {
   const PAGE_TITLE = "1. ENTITY: IRN Registo"
   const PAGE_2_TITLE =
@@ -16,8 +15,11 @@ console.log("Starting...")
       "--no-sandbox",
     ],
     executablePath:
-      process.env.CHROME_PATH ||
-      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      process.env.CHROME_PATH || platform() === "linux"
+        ? "/usr/bin/chromium-browser"
+        : platform() === "darwin"
+        ? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        : "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   })
   const page = await browser.newPage()
 
@@ -115,7 +117,7 @@ console.log("Starting...")
     }
   }
   await browser.close()
-})().finally(() => process.exit(0))
+})()
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
