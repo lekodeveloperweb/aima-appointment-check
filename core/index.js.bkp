@@ -27,7 +27,7 @@ import puppeteer from "puppeteer"
   await page.goto("https://siga.marcacaodeatendimento.pt/Marcacao/Entidades")
 
   // Set screen size
-  await page.setViewport({ width: 1080, height: 1024 })
+  await page.setViewport({ width: 1440, height: 1276 })
   const registerButton = await page.waitForSelector(
     "button[title='IRN Registo']"
   )
